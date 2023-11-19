@@ -72,7 +72,12 @@ if (codeToZone.TryGetValue("OCEANA", out var oceana))
     Console.WriteLine($"\r{zones.Length}/{zones.Length}");
 }
 
+if(codeToZone.TryGetValue("LOSPUER", out var lospuer) && codeToZone.TryGetValue("DELSOL", out var delsol))
+    foreach(var cuboid in delsol.Cuboids)
+        lospuer.AddCuboid(cuboid);
+
 codeToZone.Remove("BAYTRE");
+codeToZone.Remove("DELSOL");
 
 var clipCuboidFromZone = new List<(string subject, string clip)>
 {
@@ -251,10 +256,10 @@ if (missingNames.Any())
     // RenderMap(codeToZone.Values.Where(x => x.Code != "PROL" && x.Code != "OCEANA").ToArray(), zones, renderZoneNames: true);
 }
 // else
-// RenderMap(codeToZone.Values.Where(x => x.Code != "PROL" && x.Code != "OCEANA").ToArray(), renderZoneNames: true);
+RenderMap(codeToZone.Values.Where(x => x.Code != "PROL" && x.Code != "OCEANA").ToArray(), renderZoneNames: true);
 
-// RenderZone(codeToZone, "OCEANA");
-// RenderConflicts(codeToZone.Values.Where(x => x.Code != "PROL" && x.Code != "OCEANA").ToArray());
+// RenderZone(codeToZone, "DESRT");
+RenderConflicts(codeToZone.Values.Where(x => x.Code != "PROL" && x.Code != "OCEANA").ToArray());
 
 GenerateDataJson(codeToZone.Values.Where(x => x.Code != "PROL" && x.Code != "OCEANA").ToArray());
 
@@ -409,7 +414,7 @@ void RenderMap(Zone[] zones, Zone[]? toHighlight = null, bool renderZoneNames = 
 
     if (!Directory.Exists(@".\output"))
         Directory.CreateDirectory(@".\output");
-    btm.Save($@".\output\map.webp", ImageFormat.Webp);
+    btm.Save($@".\output\map.jpg", ImageFormat.Jpeg);
 }
 
 void RenderZone(Dictionary<string, Zone> dict, string zoneCode)

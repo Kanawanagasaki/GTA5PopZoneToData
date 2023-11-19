@@ -50,11 +50,13 @@ public class Zone
         var x2 = Math.Max(cuboid.X1, cuboid.X2);
         var y2 = Math.Max(cuboid.Y1, cuboid.Y2);
 
-        var cuboidPath = new PathD();
-        cuboidPath.Add(new(x1, y1));
-        cuboidPath.Add(new(x2, y1));
-        cuboidPath.Add(new(x2, y2));
-        cuboidPath.Add(new(x1, y2));
+        var cuboidPath = new PathD
+        {
+            new(x1, y1),
+            new(x2, y1),
+            new(x2, y2),
+            new(x1, y2)
+        };
 
         var cuboidPaths = new PathsD([cuboidPath]);
 
